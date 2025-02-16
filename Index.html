@@ -17,23 +17,25 @@
 <body>
     <div class="wrapper">
         <form action="" class="gpsForm">
-            <button id="userLocation">Use My location</button><br/>
+            
             <div class="latitude">
             <label for="latitude">latitude: </label>
             <input type="text" name="latitude" id="latitude" required />
             </div>
             <div class="longitude">
             <label for="longitude">longitude </label>
-            <input type="text" name="longitude  " id="longitude" required />
+            <input type="text" name="longitude" id="longitude" required />
             </div>
-            <div class="submitButton">
-                <input type="submit" value="Find a Toilet" />
-            </div> 
+            <button id="userLocation">Use My location</button><br/>
+            
             <div class="slider">
                 <p>Search Radius:</p>
                 <input type="range" min="1" max="10000" value="5000" class="slider" id="rangeslider">
                 <p>Value: <span id="sliderValue"></span></p>
             </div>
+            <div class="submitButton">
+                <input type="submit" value="Find a Toilet" />
+            </div> 
         </form>
         
         <div id="map"></div>
