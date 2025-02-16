@@ -1,5 +1,7 @@
 import math
 import csv
+import json
+from sortedcontainers import SortedList
 
 class DateConstraint:
     CLOSE_TEXT = "Currently closed"
@@ -106,12 +108,35 @@ class DatabaseSearch:
 
     def distance(x1, y1, x2, y2):
         return math.sqrt(math.pow(x2 - x1, 2) + math.pow(y2 - y1, 2))
+    
+    def distanceLatLong(lat1, long1, lat2, long2):
+        long1, lat1, long2, lat2= tuple(map(math.radians, (long1, lat1, long2, lat2)))
 
-    def search(long, lat, hasParking = False, hasAccessibleParking = False, hasBabyChange = False, ):
+        return math.acos(
+            math.sin(lat1) * math.sin(lat2)
+            + math.cos(lat1) * math.cos(lat2) * math.cos(long2 - long1)
+            ) * 6371
+
+    def search(lat, long, searchResults, hasParking = False, hasAccessibleParking = False, hasBabyChange = False):
+        closest = SortedList(key = lambda value: value['distance'])
+
         with open(DatabaseSearch.PATH, encoding="utf8") as file:
             reader = csv.DictReader(file)
-            count = 0
-            hours = set()
             for row in reader:
-                if (row['OpeningHours'][0] != "O"):
-                    hours.add(row['OpeningHours'])
+                if (hasParking and row['Parking'] != 'True'): continue
+                if (hasAccessibleParking and row['ParkingAccessible'] != 'True'): continue
+                if (hasBabyChange and row['BabyChange'] != 'True'): continue
+
+                closest.add(
+                    {
+                        'distance' : DatabaseSearch.distanceLatLong(lat, long, float(row['Latitude']), float(row['Longitude'])),
+                        'lat' : float(row['Latitude']),
+                        'long' : float(row['Longitude']),
+                        'name' : row['Name']
+                    }
+                )
+
+                if len(closest) > searchResults:
+                    del closest[-1]
+        
+        return json.dumps(list(closest))
