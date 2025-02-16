@@ -15,21 +15,31 @@
     <title>Document</title>
 </head>
 <body>
-    <button id="userLocation">Use My location</button><br/>
-    <form action="" class="gpsForm">
-        <div class="latitude">
-          <label for="latitude">latitude: </label>
-          <input type="text" name="latitude" id="latitude" required />
-        </div>
-        <div class="longitude">
-          <label for="longitude">longitude </label>
-          <input type="text" name="longitude" id="longitude" required />
-        </div>
-        <div class="submitButton">
-            <input type="submit" value="Find a Toilet" />
-        </div>
-    </form>
-    <div id="map"></div>
+    <div class="wrapper">
+        <form action="" class="gpsForm">
+            
+            <div class="latitude">
+            <label for="latitude">latitude: </label>
+            <input type="text" name="latitude" id="latitude" required />
+            </div>
+            <div class="longitude">
+            <label for="longitude">longitude </label>
+            <input type="text" name="longitude" id="longitude" required />
+            </div>
+            <button id="userLocation">Use My location</button><br/>
+            
+            <div class="slider">
+                <p>Search Radius:</p>
+                <input type="range" min="1" max="10000" value="5000" class="slider" id="rangeslider">
+                <p>Value: <span id="sliderValue"></span></p>
+            </div>
+            <div class="submitButton">
+                <input type="submit" value="Find a Toilet" />
+            </div> 
+        </form>
+        
+        <div id="map"></div>
+    </div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""></script>

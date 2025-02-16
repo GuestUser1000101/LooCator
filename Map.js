@@ -1,4 +1,14 @@
 
+let slider = document.getElementById("rangeslider");
+let output = document.getElementById("sliderValue");
+let valueP = document.createElement('p');
+let pText = document.createTextNode(slider.value);
+valueP.appendChild(pText);
+output.appendChild(valueP);
+slider.oninput = function() {
+    pText.textContent = this.value;
+}
+
 var map = L.map('map').setView([-25.2744, 133.7751], 5);
 
 // Add OpenStreetMap tile layer
@@ -60,4 +70,3 @@ function trackManualInput() {
     lngInput.addEventListener("input", handleInput);
 }
 trackManualInput();
-
