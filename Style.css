@@ -96,7 +96,7 @@ body, html { margin: 0; padding: 0; height: 100%; font-family: 'Arial', sans-ser
 }
   
 .active, .collapsible:hover {
-    background-color: #555;
+    background-color: #1e3d58;
 }
   
 .additionalContent {
