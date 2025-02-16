@@ -41,14 +41,14 @@ class DateConstraint:
     
     def isMonthValid(month, monthConstraint):
         monthConstraint = list(map(lambda x: DateConstraint.MONTHS[x], monthConstraint.split('-')))
-        return month == monthConstraint[0] if len(month) == 1 else (
+        return month == monthConstraint if len(monthConstraint) == 1 else (
             month >= monthConstraint[0] and month <= monthConstraint[1] if monthConstraint[1] > monthConstraint[0] else 
             month >= monthConstraint[0] or month <= monthConstraint[1]
         )
     
     def isDayValid(day, dayConstraint):
-        dayConstraint = list(map(lambda x: DateConstraint.MONTHS[x], dayConstraint.split('-')))
-        return day == dayConstraint[0] if len(day) == 1 else (
+        dayConstraint = list(map(lambda x: DateConstraint.DAYS[x], dayConstraint.split('-')))
+        return day == dayConstraint if len(dayConstraint) == 1 else (
             day >= dayConstraint[0] and day <= dayConstraint[1] if dayConstraint[1] > dayConstraint[0] else
             day >= dayConstraint[0] or day <= dayConstraint[1]
         )
@@ -70,6 +70,3 @@ class DatabaseSearch:
             for row in reader:
                 if (row['OpeningHours'][0] != "O"):
                     hours.add(row['OpeningHours'])
-            print(hours)
-
-DatabaseSearch.search(1, 1)
