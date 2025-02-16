@@ -1,4 +1,5 @@
 
+
 let slider = document.getElementById("rangeslider");
 let output = document.getElementById("sliderValue");
 let valueP = document.createElement('p');
@@ -10,6 +11,39 @@ slider.oninput = function() {
 }
 
 var map = L.map('map').setView([-25.2744, 133.7751], 5);
+
+const SampleRestrooms = [
+    {
+        "name": "Sydney Central Restroom",
+        "lat": -33.8688,
+        "long": 151.2093,
+        "description": "Public restroom near Sydney Opera House"
+    },
+    {
+        "name": "Melbourne CBD Restroom",
+        "lat": -37.8136,
+        "long": 144.9631,
+        "description": "Clean and accessible restroom in the city center"
+    },
+    {
+        "name": "Brisbane Park Restroom",
+        "lat": -27.4698,
+        "long": 153.0251,
+        "description": "Located in South Bank Parklands"
+    },
+    {
+        "name": "Perth Beach Restroom",
+        "lat": -31.9505,
+        "long": 115.8605,
+        "description": "Near Cottesloe Beach"
+    },
+    {
+        "name": "Adelaide Mall Restroom",
+        "lat": -34.9285,
+        "long": 138.6007,
+        "description": "Inside Rundle Mall"
+    }
+];
 
 // Add OpenStreetMap tile layer
 var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -34,9 +68,16 @@ function addRestroom(lat,lng) {
         iconAnchor: [15, 30], 
         popupAnchor: [0, -30]})
     var toiletMarker = L.marker([lat, lng], {icon: restroomIcon, draggable: false});
-    var popup = toiletMarker.bindPopup("Toilets!! ");
+    var popup = toiletMarker.bindPopup();
     popup.addTo(map);
 }
+
+function addAllToilets(Toilets) {
+    Toilets.forEach(restroom => {
+        addRestroom(restroom.lat, restroom.long);
+    });
+}
+addAllToilets(SampleRestrooms);
 
 const locationButton = document.getElementById('userLocation');
 locationButton.addEventListener('click', () => {
