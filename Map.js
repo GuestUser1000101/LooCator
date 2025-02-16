@@ -1,3 +1,4 @@
+
 var map = L.map('map').setView([-25.2744, 133.7751], 5);
 
 // Add OpenStreetMap tile layer
@@ -6,18 +7,16 @@ var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 })
 osm.addTo(map);
-// marker 
-
+// marker      
 var myIcon = L.icon({   
     iconUrl: 'Imgs/red_marker.png',
     iconSize: [40, 40],
-});
-
-var singleMarker = L.marker([-26.58828, 139.490933], { icon: myIcon, draggable: true });
-var popup = singleMarker.bindPopup('You are here at ' + singleMarker.getLatLng()).openPopup()
-popup.addTo(map);
-
-var secondMarker = L.marker([29.3949, 83.1240], { icon: myIcon, draggable: true });
+}); 
+function AddMyMarker(lat, lng) {
+    var singleMarker = L.marker([lat, lng], { icon: myIcon, draggable: true });
+    var popup = singleMarker.bindPopup('You are here at ' + singleMarker.getLatLng()).openPopup()
+    popup.addTo(map);
+}
 
 function addRestroom(lat,lng) {
     var restroomIcon = L.icon({ iconUrl: 'Imgs/BathroomIcon.jpg', // Public restroom icon
@@ -29,4 +28,36 @@ function addRestroom(lat,lng) {
     popup.addTo(map);
 }
 
-addRestroom(-25.2744, 133.7751);
+const locationButton = document.getElementById('userLocation');
+locationButton.addEventListener('click', () => {
+    navigator.geolocation.getCurrentPosition(geoSuccess);
+});
+
+function geoSuccess(position) {
+    let { coords } = position; 
+    console.log(coords);
+    latitude = document.getElementById("latitude");
+    latitude.value = coords.latitude;
+    longitude = document.getElementById("longitude");
+    longitude.value = coords.longitude;
+    AddMyMarker(coords.latitude, coords.longitude);
+} 
+
+function trackManualInput() {
+    let latInput = document.getElementById("latitude");
+    let lngInput = document.getElementById("longitude");
+
+    function handleInput() {
+        let lat = latInput.value;
+        let lng = lngInput.value;
+
+        if (lat && lng) {
+            AddMyMarker(lat, lng); // Automatically add marker
+        }
+    }
+
+    latInput.addEventListener("input", handleInput);
+    lngInput.addEventListener("input", handleInput);
+}
+trackManualInput();
+
