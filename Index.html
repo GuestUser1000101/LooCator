@@ -5,45 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Australia Interactive Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""/>
-    <style>
-         body, html { margin: 0; padding: 0; height: 100%; }
-         #map { width: 100%; height: 100vh; }
-    </style>
-    <link rel="stylesheet" href="Style.css" defer>
-    <title>Document</title>
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="Style.css">
 </head>
 <body>
+    <div id="map"></div>
+    <header class="main-header">
+        LooCator
+    </header>
+
     <div class="wrapper">
         <form action="" class="gpsForm">
-            
             <div class="latitude">
-            <label for="latitude">latitude: </label>
-            <input type="text" name="latitude" id="latitude" required />
+                <label for="latitude">Latitude: </label>
+                <input type="text" name="latitude" id="latitude" required />
             </div>
             <div class="longitude">
-            <label for="longitude">longitude </label>
-            <input type="text" name="longitude" id="longitude" required />
+                <label for="longitude">Longitude: </label>
+                <input type="text" name="longitude" id="longitude" required />
             </div>
-            <button id="userLocation">Use My location</button><br/>
-            
+            <button id="userLocation">Use My Location</button><br/>
             <div class="slider">
                 <p>Search Radius:</p>
                 <input type="range" min="1" max="10000" value="5000" class="slider" id="rangeslider">
                 <p>Value: <span id="sliderValue"></span></p>
             </div>
+
             <div class="submitButton">
                 <input type="submit" value="Find a Toilet" />
             </div> 
         </form>
-        
-        <div id="map"></div>
     </div>
+
+    <!-- Leaflet.js Script -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""></script>
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="Map.js"></script>
 </body>
-
 </html>
