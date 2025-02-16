@@ -9,3 +9,20 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
+
+
+//finding user's position
+const locationButton = document.getElementById('userLocation');
+locationButton.addEventListener('click', () => {
+    navigator.geolocation.getCurrentPosition(geoSuccess);
+});
+
+function geoSuccess(position) {
+    let { coords } = position; 
+    console.log(coords);
+    latitude = document.getElementById("latitude");
+    latitude.value = coords.latitude;
+    longitude = document.getElementById("longitude");
+    longitude.value = coords.longitude;
+}
+  
