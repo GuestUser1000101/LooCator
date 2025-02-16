@@ -30,22 +30,68 @@
                 <input type="range" min="1" max="10000" value="5000" class="slider" id="rangeslider">
                 <p>Value: <span id="sliderValue"></span></p>
             </div>
-            <select id="options" name="Additional Options" multiple>
-                <option value="parking">Parking</option>
-                <option value="accessibleParking">Accessible Parking</option>
-                <option value="MLAK24">MLAK24</option>
-                <option value="Free">Free</option>
-                <option value="ChangingPlaces">Changing Places</option>
-                <option value="Shower">Shower</option>
-                <option value="BabyChange">Baby Change</option>
-                <option value="BabyCareRoom">Baby Care Room</option>
-                <option value="DumpPoint">Dump Point</option>
-                <option value="Unisex">Unisex</option>
-                <option value="Accessible">Wheelchair Accessible</option>
-                <option value="SharpsDisposal">Sharps Disposal</option>
-                <option value="DrinkingWater">Drinking Water</option>
-                <option value="SanitaryDisposal">Sanitary Disposal</option>
-            </select>
+            <button type="button" class="collapsible">Additional Requirements</button>
+            <div class="additionalContent">
+                <input type="checkbox" id="parking" name="parking" value="parking">
+
+                <label for="parking"> Parking</label><br>
+
+                <input type="checkbox" id="accessibleParking" name="accessibleParking" value="accessibleParking">
+
+                <label for="accessibleParking"> Accessible Parking</label><br>
+
+                <input type="checkbox" id="MLAK24" name="MLAK24" value="MLAK24">
+
+                <label for="MLAK24">MLAK24</label><br>
+
+                <input type="checkbox" id="Free" name="Free" value="Free">
+
+                <label for="Free">Free</label><br>
+
+                <input type="checkbox" id="ChangingPlaces" name="ChangingPlaces" value="ChangingPlaces">
+
+                <label for="ChangingPlaces">Changing Places</label><br>
+
+                <input type="checkbox" id="Shower" name="Shower" value="Shower">
+
+                <label for="Shower">Shower</label><br>
+
+                <input type="checkbox" id="BabyChange" name="BabyChange" value="BabyChange">
+
+                <label for="BabyChange">Baby Change</label><br>
+
+                <input type="checkbox" id="BabyCareRoom" name="BabyCareRoom" value="BabyCareRoom">
+
+                <label for="BabyCareRoom">Baby Care Room</label><br>
+
+                <input type="checkbox" id="DumpPoint" name="DumpPoint" value="DumpPoint">
+
+                <label for="DumpPoint">Dump Point</label><br>
+
+                <input type="checkbox" id="Unisex" name="Unisex" value="Unisex">
+
+                <label for="Unisex">Unisex</label><br>
+
+                <input type="checkbox" id="Accessible" name="Accessible" value="Accessible">
+
+                <label for="Accessible">Wheelchair Accessible</label><br>
+
+                <input type="checkbox" id="SharpsDisposal" name="SharpsDisposal" value="SharpsDisposal">
+
+                <label for="SharpsDisposal">Sharps Disposal</label><br>
+
+                <input type="checkbox" id="SharpsDisposal" name="SharpsDisposal" value="SharpsDisposal">
+
+                <label for="SharpsDisposal">Sharps Disposal</label><br>
+
+                <input type="checkbox" id="DrinkingWater" name="DrinkingWater" value="DrinkingWater">
+
+                <label for="DrinkingWater">Drinking Water</label><br>
+
+                <input type="checkbox" id="SanitaryDisposal" name="SanitaryDisposal" value="SanitaryDisposal">
+
+                <label for="SanitaryDisposal">Sanitary Disposal</label><br>
+            </div>
             <div class="submitButton">
                 <input type="submit" value="Find a Toilet" />
             </div> 
