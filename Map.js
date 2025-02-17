@@ -226,10 +226,9 @@ var SharpsDisposalHTML = document.getElementById('SharpsDisposal');
 var DrinkingWaterHTML= document.getElementById('DrinkingWater');
 var SanitaryDisposalHTML = document.getElementById('SanitaryDisposal');
 toiletButton.addEventListener("click", () => {
-    console.log(typeof(time.value));
-    console.log(time.value);
-    console.log(Math.floor(time.value.getTime()/1000));
-    getData(parseFloat(latInput.value), parseFloat(lngInput.value), 10, time= timeHTMl.value,
+    console.log(typeof(timeHTML.value));
+    console.log(timeHTML.value);
+    getData(parseFloat(latInput.value), parseFloat(lngInput.value), 10, time= timeHTML.value,
     parking= ParkingHTML.checked, 
     parkingAccessible = AccessibleParkingHTML.checked, 
     MLAK24 = MLAK24HTML.checked, 
