@@ -28,12 +28,18 @@
             <label>How satisfied are you with the accuracy of the restroom locations?</label>
             <div id="accuracyDiv">
                 <div id="accuracy">
-                <input type="radio" id="satisfied" name="accuracy" value="satisfied">
-                <label for="satisfied">Satisfied</label></div>
-                <div id="accuracy"><input type="radio" id="neutral" name="accuracy" value="neutral">
-                <label for="neutral">Neutral</label></div>
-                <div id="accuracy"><input type="radio" id="dissatisfied" name="accuracy" value="dissatisfied">
-                <label for="dissatisfied">Dissatisfied</label></div>
+                    <input type="hidden" name="accuracy" value="false">
+                    <input type="radio" id="satisfied" name="accuracy" value="true">
+                    <label for="satisfied">Satisfied</label></div>
+                <div id="accuracy">
+                    <input type="hidden" name="accuracy" value="false">
+                    <input type="radio" id="neutral" name="accuracy" value="true">
+                    <label for="neutral">Neutral</label></div>
+                <div id="accuracy">
+                    <input type="hidden" name="accuracy" value="false">
+                    <input type="radio" id="dissatisfied" name="accuracy" value="true">
+                    <label for="dissatisfied">Dissatisfied</label>
+            </div>
             </div>
         </div>
 
@@ -41,13 +47,16 @@
             <label>Which features of LooCator do you find most useful? (Select all that apply)</label>
             <div id="questions">
                 <div id = "individualQuestions">
-                <input type="checkbox" id="location" name="features[]" value="location">
+                <input type="hidden" name="features[]" value="false">
+                <input type="checkbox" id="location" name="features[]" value="true" >
                 <label for="location">Finding nearby restrooms</label></div>
                 <div id = "individualQuestions">
-                <input type="checkbox" id="filters" name="features[]" value="filters">
+                    <input type="hidden" name="features[]" value="false">
+                <input type="checkbox" id="filters" name="features[]" value="true">
                 <label for="filters">Filtering by amenities</label></div>
                 <div id = "individualQuestions"> 
-                <input type="checkbox" id="directions" name="features[]" value="directions">
+                    <input type="hidden" name="features[]" value="false">
+                <input type="checkbox" id="directions" name="features[]" value="true">
                 <label for="directions">Getting directions</label></div>
             </div>
         </div>

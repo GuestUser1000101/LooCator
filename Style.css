@@ -106,7 +106,7 @@ body, html {
 
 .gpsForm input[type="submit"],
 #userLocation,
-.gpsForm input[type="button"] {
+.gpsForm input[type="button"], .gpsForm button[type="button"] {
     background-color: #1e3d58;
     color: white;
     border: none;
@@ -120,7 +120,7 @@ body, html {
 
 .gpsForm input[type="submit"]:hover,
 #userLocation:hover,
-.gpsForm input[type="button"]:hover {
+.gpsForm input[type="button"]:hover, .gpsForm button[type="button"] {
     background-color: #3a5a77;
 }
 
