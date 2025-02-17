@@ -147,8 +147,13 @@ class DatabaseSearch:
         with open(DatabaseSearch.DATABASE_PATH, encoding="utf8") as file:
             reader = csv.DictReader(file)
             for row in reader:
+                flag = False
                 for requirement in requirements:
-                    if (row[requirement] != 'True'): continue
+                    if (row[requirement] != 'True'):
+                        flag = True
+                        break
+                if flag:
+                    continue
 
                 closest.add(
                     {
@@ -184,4 +189,5 @@ class DatabaseSearch:
         
         return json.dumps(list(closest))
     
-print(DatabaseSearch.add({'Latitude' : 1, 'Longitude' : 2, 'FacilityType' : 'aa'}))
+#print(DatabaseSearch.add({'Latitude' : 1, 'Longitude' : 2, 'FacilityType' : 'aa'}))
+print(DatabaseSearch.search(10, 10, 10, 10, ['']))
