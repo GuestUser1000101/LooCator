@@ -87,7 +87,7 @@ function AddMyMarker(lat, lng) {
         color: "blue",
         fillColor: "lightblue",
         fillOpacity: 0.3,
-        radius: 10000
+        radius: 20000
     }).addTo(map);
 }
 
