@@ -1,11 +1,11 @@
 
 
 let slider = document.getElementById("rangeslider");
-let output = document.getElementById("sliderValue");
+let SliderOutput = document.getElementById("sliderValue");
 let valueP = document.createElement('p');
 let pText = document.createTextNode(slider.value);
 valueP.appendChild(pText);
-output.appendChild(valueP);
+SliderOutput.appendChild(valueP);
 slider.oninput = function() {
     pText.textContent = this.value;
 }
@@ -73,16 +73,33 @@ var myIcon = L.icon({
 }); 
 
 var lastMarker = null;
+var radiusCircle = null;
 function AddMyMarker(lat, lng) {
     if(lastMarker) {
         map.removeLayer(lastMarker);
     }
+    if (radiusCircle) {
+        map.removeLayer(radiusCircle);
+    }
     var singleMarker = L.marker([lat, lng], { icon: myIcon, draggable: true });
     var popup = singleMarker.bindPopup('You are here at ' + singleMarker.getLatLng()).openPopup()
     popup.addTo(map);
-
     lastMarker = singleMarker;
+    radiusCircle = L.circle([lat, lng], {
+        color: "blue",
+        fillColor: "lightblue",
+        fillOpacity: 0.3,
+        radius: 10000
+    }).addTo(map);
 }
+
+
+slider.oninput = function() {
+    SliderOutput.textContent = this.value; 
+    if (radiusCircle) {
+        radiusCircle.setRadius(parseInt(this.value));
+    }
+};
 
 var restroomIcon = L.icon({ iconUrl: 'Imgs/BathroomIcon.jpg', // Public restroom icon
     iconSize: [50, 50], // Adjust size as needed
@@ -111,6 +128,7 @@ function geoSuccess(position) {
     longitude = document.getElementById("longitude");
     longitude.value = coords.longitude;
     AddMyMarker(coords.latitude, coords.longitude);
+    map.setView([coords.latitude, coords.longitude], 10);
 } 
 
 function trackManualInput() {
@@ -123,9 +141,9 @@ function trackManualInput() {
 
         if (lat && lng) {
             AddMyMarker(lat, lng); // Automatically add marker
+            map.setView([lat,lng], 10);
         }
     }
-
     latInput.addEventListener("input", handleInput);
     lngInput.addEventListener("input", handleInput);
 }
@@ -135,9 +153,12 @@ var ClickedLat;
 var ClickedLong;
 function onMapClick(e) {
     ClickedLat = e.latlng.lat;
+    latitude.value = e.latlng.lat;
     ClickedLong = e.latlng.lng;
+    longitude.value = e.latlng.lng;
 
     AddMyMarker(ClickedLat, ClickedLong);
+    map.setView([ClickedLat, ClickedLong], 11);
     console.log("New coordinates: Latitude: " + ClickedLat + ", Longitude: " + ClickedLong);
 }
 map.on('click', onMapClick)
