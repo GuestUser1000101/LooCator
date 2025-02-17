@@ -133,7 +133,7 @@ class DatabaseSearch:
     def add(data):
         with open(DatabaseSearch.USER_DATABASE_PATH, 'a', encoding="utf8") as file:
             writer = csv.DictWriter(file, fieldnames=DatabaseSearch.DATABASE_FIELD_NAMES, quoting=1)
-            writer.writerows(data)
+            writer.writerows([data])
 
     def search(
             lat,
