@@ -113,7 +113,7 @@ class DatabaseSearch:
     DATABASE_PATH = 'database/toilet_map.csv'
     USER_DATABASE_PATH = 'database/user_toilet_map.csv'
     DATABASE_FIELD_NAMES = [
-        "FacilityID","URL,Name","FacilityType","Address1","Town","State","AddressNote","Latitude","Longitude","Parking","ParkingAccessible","ParkingNote","KeyRequired","MLAK24","MLAKAfterHours","PaymentRequired","AccessNote","AdultChange","ChangingPlaces","BYOSling","ACShower","ACMLAK","AdultChangeNote","BabyChange","BabyCareRoom","BabyChangeNote","DumpPoint","DPWashout","DPAfterHours","DumpPointNote","OpeningHours","OpeningHoursNote","Male","Female","Unisex","AllGender","Ambulant","Accessible","LHTransfer","RHTransfer","ToiletNote","SharpsDisposal","DrinkingWater","SanitaryDisposal","MensPadDisposal","Shower"
+        "FacilityID","URL","Name","FacilityType","Address1","Town","State","AddressNote","Latitude","Longitude","Parking","ParkingAccessible","ParkingNote","KeyRequired","MLAK24","MLAKAfterHours","PaymentRequired","AccessNote","AdultChange","ChangingPlaces","BYOSling","ACShower","ACMLAK","AdultChangeNote","BabyChange","BabyCareRoom","BabyChangeNote","DumpPoint","DPWashout","DPAfterHours","DumpPointNote","OpeningHours","OpeningHoursNote","Male","Female","Unisex","AllGender","Ambulant","Accessible","LHTransfer","RHTransfer","ToiletNote","SharpsDisposal","DrinkingWater","SanitaryDisposal","MensPadDisposal","Shower"
     ]
 
     def distance(x1, y1, x2, y2):
@@ -184,4 +184,4 @@ class DatabaseSearch:
         
         return json.dumps(list(closest))
     
-print(DatabaseSearch.search(1, 1, 1, 1, []))
+print(DatabaseSearch.add({'Latitude' : 1, 'Longitude' : 2, 'FacilityType' : 'aa'}))
