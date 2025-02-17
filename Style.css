@@ -25,6 +25,7 @@ body, html {
     position: relative;
     overflow-y: auto; 
     z-index: 1;
+    padding-top: 15%;
 }
 
 .main-header {
@@ -56,7 +57,7 @@ body, html {
    font-size: 1rem;
 }
 
-.gpsForm input[type="submit"], #userLocation {
+.gpsForm input[type="submit"], #userLocation,.gpsForm input[type="button"] {
    background-color: #1e3d58;
    color: white;
    border: none;
@@ -67,7 +68,7 @@ body, html {
    width: 100%;
 }
 
-.gpsForm input[type="submit"]:hover, #userLocation:hover {
+.gpsForm input[type="submit"]:hover, #userLocation:hover,.gpsForm input[type="button"]:hover {
    background-color: #1e3d58;
 }
 .slider {
