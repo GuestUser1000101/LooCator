@@ -6,7 +6,7 @@ function request (lat, long, searchResults, time, parking = false, parkingAccess
         this.lat = lat;
         this.long = long;
         this.searchResults = searchResults;
-        this.Time = time;
+        this.time = time;
         this.requirementJson = {};
         this.requirementJson.Parking = parking;
         this.requirementJson.ParkingAccessible = parkingAccessible;
@@ -24,19 +24,26 @@ function request (lat, long, searchResults, time, parking = false, parkingAccess
         this.requirementJson.SanitaryDisposal = sanitaryDisposal;
      }
   console.log(JSON.stringify(new request(100.0, 100.0, 100, 10)));
-  var toUse = JSON.stringify(new request(100.0, 100.0, 100, 10));
-  console.log(toUse);
-var url = ""
-const myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
+  
 
-async function getData() {
+async function getData(lat, long, searchResults, time, parking = false, parkingAccessible = false, 
+  MLAK24 = false, paymentRequired = false, changingPlaces = false, shower = false,
+   babyChange = false, babyCareRoom = false, 
+   dumpPoint = false, unisex = false, accessible = false,
+    sharpsDisposal = false, drinkingWater = false, sanitaryDisposal = false) {
+      
+  looRequest = new request(lat, long, searchResults, time, parking, parkingAccessible, MLAK24, 
+    paymentRequired, changingPlaces, shower, babyChange, babyCareRoom, dumpPoint, unisex, accessible, 
+   sharpsDisposal, drinkingWater, sanitaryDisposal);
+   console.log(looRequest);
   const url = "http://127.0.0.1:5000/search"
   try {
     const response = await fetch(url, {
       method: "POST",
-      body:  toUse,
-      headers : myHeaders
+      body:  JSON.stringify(looRequest),
+      headers : {
+        "Content-Type": "application/json",
+      },
   });
     if(!response.ok) {
       throw new Error(`Response status: ${response.status}`);
@@ -48,5 +55,5 @@ async function getData() {
     console.error(error.message);
   }
 }
-getData();
+getData(100, 100, 5, 100);
   

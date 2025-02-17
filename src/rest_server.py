@@ -1,10 +1,10 @@
 from __future__ import print_function # In python 2.7
 from flask import Flask, render_template, request, redirect, session, json, jsonify, Response
-
+from database_search import DateConstraint, DatabaseSearch
 
 import sys
 
-companies = [{"id": 1, "name": "Company One"}, {"id": 2, "name": "Company Two"}]
+#reqs = ['Parking', 'ParkingAccessible', 'MLAK24', 'PaymentRequired', 'ChaningPlaces', 'Shower', 'BabyChange', 'DumpPoint', 'Unisex', 'Accessible', 'SharpsDisposal', 'DrinkingWater', 'SanitaryDisposal']
 
 api = Flask(__name__)
 
@@ -12,9 +12,13 @@ api = Flask(__name__)
 def post_companies():
   content = request.json
   print("\n\n\n", file=sys.stderr)
-  print(content['lat'], file=sys.stderr)
+  print(content, file=sys.stderr)
   print("\n\n\n", file=sys.stderr)
-  
+  reqs = []
+  for key in content['requirementJson']:
+    value = content['requirementJson'][key]
+    print("The key and value are ({}) = ({})".format(key, value))
+    reqs.append(key)
   lat = content['lat']
 
   print(lat, file=sys.stderr)
@@ -23,10 +27,12 @@ def post_companies():
   long = content['long']
   print(long, file=sys.stderr)
   print("\n\n\n HELLO", file=sys.stderr)
-  returnData = [{"success" : True}]
+
+
+  returnData = DatabaseSearch.search(content['lat'], content['long'], content['searchResults'], content['time'], reqs)
   response = Response(
-    response=json.dumps(returnData),
-    status=200,
+    response=returnData,
+    status=201,
     mimetype='application/json'
   )
   print(returnData, sys.stderr)
