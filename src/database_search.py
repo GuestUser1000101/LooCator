@@ -128,16 +128,15 @@ class DatabaseSearch:
             long,
             searchResults,
             time,
-            requirementJson,
+            requirements,
         ):
         closest = SortedList(key = lambda value: value['distance'])
 
         with open(DatabaseSearch.PATH, encoding="utf8") as file:
             reader = csv.DictReader(file)
-            requirements = json.loads(requirementJson)
             for row in reader:
                 for requirement in requirements:
-                    if (requirements[requirement] and row[requirement] != 'True'): continue
+                    if (row[requirement] != 'True'): continue
 
                 closest.add(
                     {
