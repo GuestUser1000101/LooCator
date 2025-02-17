@@ -135,7 +135,9 @@ var ClickedLat;
 var ClickedLong;
 function onMapClick(e) {
     ClickedLat = e.latlng.lat;
+    latitude.value = e.latlng.lat;
     ClickedLong = e.latlng.lng;
+    longitude.value = e.latlng.lng;
 
     AddMyMarker(ClickedLat, ClickedLong);
     console.log("New coordinates: Latitude: " + ClickedLat + ", Longitude: " + ClickedLong);
