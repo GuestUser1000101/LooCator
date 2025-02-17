@@ -174,7 +174,7 @@ function request (lat, long, searchResults, time, parking = false, parkingAccess
   console.log(JSON.stringify(new request(100.0, 100.0, 100, 10)));
   
 
-async function getData(lat, long, searchResults, time, parking = false, parkingAccessible = false, 
+async function getData(lat, long, searchResults, time = "", parking = false, parkingAccessible = false, 
   MLAK24 = false, paymentRequired = false, changingPlaces = false, shower = false,
    babyChange = false, babyCareRoom = false, 
    dumpPoint = false, unisex = false, accessible = false,
@@ -209,6 +209,7 @@ async function getData(lat, long, searchResults, time, parking = false, parkingA
   }
 }
 
+var timeHTML = document.getElementById("Time");
 var toiletButton = document.getElementById("ToiletButton");
 var ParkingHTML = document.getElementById('parking');
 var AccessibleParkingHTML = document.getElementById('accessibleParking');
@@ -225,9 +226,10 @@ var SharpsDisposalHTML = document.getElementById('SharpsDisposal');
 var DrinkingWaterHTML= document.getElementById('DrinkingWater');
 var SanitaryDisposalHTML = document.getElementById('SanitaryDisposal');
 toiletButton.addEventListener("click", () => {
-    console.log(typeof(MLAK24.checked));
-    console.log(MLAK24.checked);
-    getData(parseFloat(latInput.value), parseFloat(lngInput.value), 10, 100,
+    console.log(typeof(time.value));
+    console.log(time.value);
+    console.log(Math.floor(time.value.getTime()/1000));
+    getData(parseFloat(latInput.value), parseFloat(lngInput.value), 10, time= timeHTMl.value,
     parking= ParkingHTML.checked, 
     parkingAccessible = AccessibleParkingHTML.checked, 
     MLAK24 = MLAK24HTML.checked, 
