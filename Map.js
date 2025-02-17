@@ -210,38 +210,38 @@ async function getData(lat, long, searchResults, time, parking = false, parkingA
 }
 
 var toiletButton = document.getElementById("ToiletButton");
-var Parking = document.getElementById('parking');
-var AccessibleParking = document.getElementById('accessibleParking');
-var MLAK24 = document.getElementById('MLAK24');
-var Free = document.getElementById('Free');
-var ChangingPlaces = document.getElementById('ChangingPlaces');
-var Shower = document.getElementById('Shower');
-var BabyChange = document.getElementById('BabyChange');
-var BabyCareRoom = document.getElementById('BabyCareRoom');
-var DumpPoint = document.getElementById('DumpPoint');
-var Unisex = document.getElementById('Unisex');
-var Wheelchair = document.getElementById('Accessible');
-var SharpsDisposal = document.getElementById('SharpsDisposal');
-var DrinkingWater = document.getElementById('DrinkingWater');
-var SanitaryDisposal = document.getElementById('SanitaryDisposal');
+var ParkingHTML = document.getElementById('parking');
+var AccessibleParkingHTML = document.getElementById('accessibleParking');
+var MLAK24HTML = document.getElementById('MLAK24');
+var FreeHTML = document.getElementById('Free');
+var ChangingPlacesHTML = document.getElementById('ChangingPlaces');
+var ShowerHTML = document.getElementById('Shower');
+var BabyChangeHTML = document.getElementById('BabyChange');
+var BabyCareRoomHTML = document.getElementById('BabyCareRoom');
+var DumpPointHTML = document.getElementById('DumpPoint');
+var UnisexHTML = document.getElementById('Unisex');
+var WheelchairHTML = document.getElementById('Accessible');
+var SharpsDisposalHTML = document.getElementById('SharpsDisposal');
+var DrinkingWaterHTML= document.getElementById('DrinkingWater');
+var SanitaryDisposalHTML = document.getElementById('SanitaryDisposal');
 toiletButton.addEventListener("click", () => {
-    console.log(typeof(Shower.checked));
-    console.log(Shower.checked);
-    getData(parseFloat(latInput.value), parseFloat(lngInput.value), 10, 100, toiletButton.checked, 
-    Parking.checked, 
-    AccessibleParking.checked, 
-    MLAK24.checked, 
-    Free.checked, 
-    ChangingPlaces.checked, 
-    Shower.checked, 
-    BabyChange.checked, 
-    BabyCareRoom.checked, 
-    DumpPoint.checked, 
-    Unisex.checked, 
-    Wheelchair.checked, 
-    SharpsDisposal.checked, 
-    DrinkingWater.checked, 
-    SanitaryDisposal.checked);
+    console.log(typeof(MLAK24.checked));
+    console.log(MLAK24.checked);
+    getData(parseFloat(latInput.value), parseFloat(lngInput.value), 10, 100,
+    parking= ParkingHTML.checked, 
+    parkingAccessible = AccessibleParkingHTML.checked, 
+    MLAK24 = MLAK24HTML.checked, 
+    paymentRequired = FreeHTML.checked, 
+    changingPlaces = ChangingPlacesHTML.checked, 
+    shower = ShowerHTML.checked, 
+    babyChange= BabyChangeHTML.checked, 
+    babyCareRoom = BabyCareRoomHTML.checked, 
+    dumpPoint= DumpPointHTML.checked, 
+    unisex = UnisexHTML.checked, 
+    accessible = WheelchairHTML.checked, 
+    sharpsDisposal = SharpsDisposalHTML.checked, 
+    drinkingWater = DrinkingWaterHTML.checked, 
+    sanitaryDisposal= SanitaryDisposalHTML.checked);
 })
 
 
@@ -259,17 +259,18 @@ function addAllToilets(Toilets) {
         var popupContent = `
         <b>${restroom.name}</b><br>
         ${restroom.notes || "No description available"}<br>
+        ${restroom.time} <br>
         <b>Features:</b>
         <ul>
-            ${restroom.Parking ? "<li>Parking Available</li>" : ""}
-            ${restroom.ParkingAccessible ? "<li>Accessible Parking</li>" : ""}
-            ${restroom.Accessible ? "<li>Wheelchair Accessible</li>" : ""}
-            ${restroom.BabyChange ? "<li>Baby Change Facility</li>" : ""}
-            ${restroom.BabyCareRoom ? "<li>Baby Care Room</li>" : ""}
-            ${restroom.DrinkingWater ? "<li>Drinking Water</li>" : ""}
-            ${restroom.SanitaryDisposal ? "<li>Sanitary Disposal</li>" : ""}
-            ${restroom.Shower ? "<li>Shower Available</li>" : ""}
-            ${restroom.DumpPoint ? "<li>Dump Point</li>" : ""}
+            ${restroom.Parking === "True" ? "<li>Parking Available</li>" : ""}
+            ${restroom.ParkingAccessible === "True" ? "<li>Accessible Parking</li>" : ""}
+            ${restroom.Accessible === "True" ? "<li>Wheelchair Accessible</li>" : ""}
+            ${restroom.BabyChange === "True" ? "<li>Baby Change Facility</li>" : ""}
+            ${restroom.BabyCareRoom === "True" ? "<li>Baby Care Room</li>" : ""}
+            ${restroom.DrinkingWater === "True" ? "<li>Drinking Water</li>" : ""}
+            ${restroom.SanitaryDisposal === "True" ? "<li>Sanitary Disposal</li>" : ""}
+            ${restroom.Shower=== "True"  ? "<li>Shower Available</li>" : ""}
+            ${restroom.DumpPoint === "True" ? "<li>Dump Point</li>" : ""}
         </ul>
     `;
          toiletMarker.bindPopup(popupContent);
