@@ -49,14 +49,13 @@ async function getData(lat, long, searchResults, time, parking = false, parkingA
       throw new Error(`Response status: ${response.status}`);
     }
     const json = await response.json();
-    return json
     console.log(json);
     console.log("WE ARE HERE NOW BB")
   } catch (error) {
     console.error(error.message);
   }
 }
-//getData(100, 100, 5, 100);
+getData(100, 100, 5, 100, parking = true);
 
 
 async function addToilet(latIn, longIn, nameIn, featuresIn) {

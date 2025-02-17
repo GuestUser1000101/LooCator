@@ -190,4 +190,4 @@ class DatabaseSearch:
         return json.dumps(list(closest))
     
 #print(DatabaseSearch.add({'Latitude' : 1, 'Longitude' : 2, 'FacilityType' : 'aa'}))
-print(DatabaseSearch.search(10, 10, 10, 10, ['']))
+#print(DatabaseSearch.search(10, 10, 10, 10, ['']))

@@ -21,7 +21,8 @@ def post_companies():
   for key in content['requirementJson']:
     value = content['requirementJson'][key]
     print("The key and value are ({}) = ({})".format(key, value))
-    reqs.append(key)
+    if(content['requirementJson'][key]):
+      reqs.append(key)
   lat = content['lat']
 
   print(lat, file=sys.stderr)
@@ -31,7 +32,7 @@ def post_companies():
   print(long, file=sys.stderr)
   print("\n\n\n HELLO", file=sys.stderr)
 
-
+  print(reqs)
   returnData = DatabaseSearch.search(content['lat'], content['long'], content['searchResults'], content['time'], reqs)
   response = Response(
     response=returnData,
