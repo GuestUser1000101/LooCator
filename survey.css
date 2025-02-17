@@ -2,43 +2,62 @@ body {
     font-family: sans-serif;
     margin: 20px;
     text-align: center;
+    background-color: #f4f4f4; /* Light gray background */
+    color: #333; /* Dark gray text color */
 }
+
 h1 {
     text-align: center;
+    color: #1e3d58; /* Dark blue heading color */
+    margin-bottom: 20px;
 }
+
+p {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
 label {
     display: block;
     margin-bottom: 5px;
+    font-weight: bold;
 }
+
 input[type="radio"],
 input[type="checkbox"] {
     margin-right: 10px;
 }
-#accuracy{
+
+#accuracyDiv {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-}
-#accuracyDiv{
-    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-content: center;
     align-items: baseline;
     justify-content: center;
-    align-content: center;
     flex-wrap: wrap;
-    flex-direction: column;
 }
-#questions{
+
+#accuracy {
     display: flex;
+    align-items: center;
+}
+
+#questions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-content: center;
     align-items: baseline;
     justify-content: center;
-    align-content: center;
     flex-wrap: wrap;
-    flex-direction: column;
 }
-#individualQuestions{
-    display:flex;
-    flex-direction: row;
+
+#individualQuestions {
+    display: flex;
+    align-items: center; 
 }
+
 textarea {
     width: 100%;
     padding: 10px;
@@ -46,17 +65,25 @@ textarea {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
-button {
-    background-color: #007bff;
+
+.question {
+    margin-bottom: 20px;
+}
+
+#surveyButton {
+    background-color: #007bff; /* Blue button */
     color: white;
     padding: 10px 20px;
+    font-size: 1rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    margin: 20px auto 0; /* Center the button and add top margin */
+    display: block; /* Makes margin: auto work */
 }
-button:hover {
-    background-color: #0056b3;
-}
-.question {
-    margin-bottom: 20px;
+
+#surveyButton:hover {
+    background-color: #0056b3; /* Darker blue on hover */
 }
