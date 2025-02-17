@@ -3,7 +3,7 @@ body, html {
     padding: 0;
     height: 100%;
     font-family: 'Arial', sans-serif;
-    display: flex; /* Remove display: flex from body */
+    display: flex; 
 }
 
 #map {
@@ -17,11 +17,11 @@ body, html {
 
 .wrapper {
     display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center; /* Center horizontally */
-    height: 100vh; /* Needed for vertical centering */
+    flex-direction: column; 
+    align-items: center; 
+    height: 100vh; 
     width: 100%;
-    padding: 20px; /* Consistent padding */
+    padding: 20px; 
     position: relative;
     overflow-y: auto; 
     z-index: 1;
@@ -68,7 +68,7 @@ body, html {
 }
 
 .gpsForm input[type="submit"]:hover, #userLocation:hover {
-   background-color: #3a5a77;
+   background-color: #1e3d58;
 }
 .slider {
    margin-top: 20px;
@@ -103,10 +103,11 @@ body, html {
     text-align: left;
     outline: none;
     font-size: 15px;
+    margin-bottom: 5px;
 }
   
 .active, .collapsible:hover {
-    background-color: #777;
+    background-color: #1e3d58;
 }
   
 .additionalContent {
@@ -114,7 +115,7 @@ body, html {
     display: none;
     overflow: hidden;
     background-color: #f1f1f1;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .additionalContent > * { 
