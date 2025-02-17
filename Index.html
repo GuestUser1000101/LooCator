@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Australia Interactive Map</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <link rel="stylesheet" href="Style.css">
 </head>
 <body>
@@ -16,81 +15,37 @@
 
     <div class="wrapper">
         <form action="" class="gpsForm">
-            <div class="latitude">
-                <label for="latitude">Latitude: </label>
+            <div class="input-group">
+                <label for="latitude">Latitude:</label>
                 <input type="text" name="latitude" id="latitude" required />
             </div>
-            <div class="longitude">
-                <label for="longitude">Longitude: </label>
+            <div class="input-group">
+                <label for="longitude">Longitude:</label>
                 <input type="text" name="longitude" id="longitude" required />
             </div>
-            <button id="userLocation">Use My Location</button><br/>
+            <button id="userLocation">Use My Location</button>
             <div class="slider">
-                <p>Search Radius:</p>
+                <p>Search Radius: <span id="sliderValue">5000</span>m</p>
                 <input type="range" min="1" max="10000" value="5000" class="slider" id="rangeslider">
-                <p>Value: <span id="sliderValue"></span></p>
             </div>
             <button type="button" class="collapsible">Additional Requirements</button>
             <div class="additionalContent">
-                <input type="checkbox" id="parking" name="parking" value="parking">
-
-                <label for="parking"> Parking</label><br>
-
-                <input type="checkbox" id="accessibleParking" name="accessibleParking" value="accessibleParking">
-
-                <label for="accessibleParking"> Accessible Parking</label><br>
-
-                <input type="checkbox" id="MLAK24" name="MLAK24" value="MLAK24">
-
-                <label for="MLAK24">MLAK24</label><br>
-
-                <input type="checkbox" id="Free" name="Free" value="Free">
-
-                <label for="Free">Free</label><br>
-
-                <input type="checkbox" id="ChangingPlaces" name="ChangingPlaces" value="ChangingPlaces">
-
-                <label for="ChangingPlaces">Changing Places</label><br>
-
-                <input type="checkbox" id="Shower" name="Shower" value="Shower">
-
-                <label for="Shower">Shower</label><br>
-
-                <input type="checkbox" id="BabyChange" name="BabyChange" value="BabyChange">
-
-                <label for="BabyChange">Baby Change</label><br>
-
-                <input type="checkbox" id="BabyCareRoom" name="BabyCareRoom" value="BabyCareRoom">
-
-                <label for="BabyCareRoom">Baby Care Room</label><br>
-
-                <input type="checkbox" id="DumpPoint" name="DumpPoint" value="DumpPoint">
-
-                <label for="DumpPoint">Dump Point</label><br>
-
-                <input type="checkbox" id="Unisex" name="Unisex" value="Unisex">
-
-                <label for="Unisex">Unisex</label><br>
-
-                <input type="checkbox" id="Accessible" name="Accessible" value="Accessible">
-
-                <label for="Accessible">Wheelchair Accessible</label><br>
-
-                <input type="checkbox" id="SharpsDisposal" name="SharpsDisposal" value="SharpsDisposal">
-
-                <label for="SharpsDisposal">Sharps Disposal</label><br>
-
-                <input type="checkbox" id="SharpsDisposal" name="SharpsDisposal" value="SharpsDisposal">
-
-                <label for="SharpsDisposal">Sharps Disposal</label><br>
-
-                <input type="checkbox" id="DrinkingWater" name="DrinkingWater" value="DrinkingWater">
-
-                <label for="DrinkingWater">Drinking Water</label><br>
-
-                <input type="checkbox" id="SanitaryDisposal" name="SanitaryDisposal" value="SanitaryDisposal">
-
-                <label for="SanitaryDisposal">Sanitary Disposal</label><br>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="parking" name="parking" value="parking"><label for="parking"> Parking</label>
+                    <input type="checkbox" id="accessibleParking" name="accessibleParking" value="accessibleParking"><label for="accessibleParking"> Accessible Parking</label>
+                    <input type="checkbox" id="MLAK24" name="MLAK24" value="MLAK24"><label for="MLAK24">MLAK24</label>
+                    <input type="checkbox" id="Free" name="Free" value="Free"><label for="Free">Free</label>
+                    <input type="checkbox" id="ChangingPlaces" name="ChangingPlaces" value="ChangingPlaces"><label for="ChangingPlaces"> Changing Places</label>
+                    <input type="checkbox" id="Shower" name="Shower" value="Shower"><label for="Shower">Shower</label>
+                    <input type="checkbox" id="BabyChange" name="BabyChange" value="BabyChange"><label for="BabyChange"> Baby Change</label>
+                    <input type="checkbox" id="BabyCareRoom" name="BabyCareRoom" value="BabyCareRoom"><label for="BabyCareRoom"> Baby Care Room</label>
+                    <input type="checkbox" id="DumpPoint" name="DumpPoint" value="DumpPoint"><label for="DumpPoint"> Dump Point</label>
+                    <input type="checkbox" id="Unisex" name="Unisex" value="Unisex"><label for="Unisex">Unisex</label>
+                    <input type="checkbox" id="Accessible" name="Accessible" value="Accessible"><label for="Accessible"> Wheelchair Accessible</label>
+                    <input type="checkbox" id="SharpsDisposal" name="SharpsDisposal" value="SharpsDisposal"><label for="SharpsDisposal"> Sharps Disposal</label>
+                    <input type="checkbox" id="DrinkingWater" name="DrinkingWater" value="DrinkingWater"><label for="DrinkingWater"> Drinking Water</label>
+                    <input type="checkbox" id="SanitaryDisposal" name="SanitaryDisposal" value="SanitaryDisposal"><label for="SanitaryDisposal"> Sanitary Disposal</label>
+                </div>
             </div>
             <div class="submitButton">
                 <input type="submit" value="Find a Toilet" />
@@ -98,9 +53,7 @@
         </form>
     </div>
 
-    <!-- Leaflet.js Script -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="Map.js"></script>
 </body>
 </html>
