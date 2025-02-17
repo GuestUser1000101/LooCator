@@ -71,25 +71,29 @@ var myIcon = L.icon({
     iconUrl: 'Imgs/red_marker.png',
     iconSize: [40, 40],
 }); 
+
+var lastMarker = null;
 function AddMyMarker(lat, lng) {
+    if(lastMarker) {
+        map.removeLayer(lastMarker);
+    }
     var singleMarker = L.marker([lat, lng], { icon: myIcon, draggable: true });
     var popup = singleMarker.bindPopup('You are here at ' + singleMarker.getLatLng()).openPopup()
     popup.addTo(map);
+
+    lastMarker = singleMarker;
 }
 
-function addRestroom(lat,lng) {
-    var restroomIcon = L.icon({ iconUrl: 'Imgs/BathroomIcon.jpg', // Public restroom icon
-        iconSize: [50, 50], // Adjust size as needed
-        iconAnchor: [15, 30], 
-        popupAnchor: [0, -30]})
-    var toiletMarker = L.marker([lat, lng], {icon: restroomIcon, draggable: false});
-    var popup = toiletMarker.bindPopup();
-    popup.addTo(map);
-}
+var restroomIcon = L.icon({ iconUrl: 'Imgs/BathroomIcon.jpg', // Public restroom icon
+    iconSize: [50, 50], // Adjust size as needed
+    iconAnchor: [15, 30], 
+    popupAnchor: [0, -30]})
 
 function addAllToilets(Toilets) {
     Toilets.forEach(restroom => {
-        addRestroom(restroom.lat, restroom.long);
+        var toiletMarker = L.marker([restroom.lat, restroom.long], {icon: restroomIcon, draggable: false});
+         var popup = toiletMarker.bindPopup();
+         popup.addTo(map);
     });
 }
 addAllToilets(SampleRestrooms);
@@ -126,3 +130,14 @@ function trackManualInput() {
     lngInput.addEventListener("input", handleInput);
 }
 trackManualInput();
+
+var ClickedLat;
+var ClickedLong;
+function onMapClick(e) {
+    ClickedLat = e.latlng.lat;
+    ClickedLong = e.latlng.lng;
+
+    AddMyMarker(ClickedLat, ClickedLong);
+    console.log("New coordinates: Latitude: " + ClickedLat + ", Longitude: " + ClickedLong);
+}
+map.on('click', onMapClick)
