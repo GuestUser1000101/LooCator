@@ -47,7 +47,7 @@ body, html {
 }
 
 
-.gpsForm input[type="text"] {
+.gpsForm input[type="text"], .gpsForm input[type="datetime-local"] {
    width: 100%;
    padding: 10px;
    margin: 10px 0;
