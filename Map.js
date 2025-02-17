@@ -209,11 +209,39 @@ async function getData(lat, long, searchResults, time, parking = false, parkingA
   }
 }
 
-var toiletButton = document.getElementById("ToiletButton")
+var toiletButton = document.getElementById("ToiletButton");
+var Parking = document.getElementById('parking');
+var AccessibleParking = document.getElementById('accessibleParking');
+var MLAK24 = document.getElementById('MLAK24');
+var Free = document.getElementById('Free');
+var ChangingPlaces = document.getElementById('ChangingPlaces');
+var Shower = document.getElementById('Shower');
+var BabyChange = document.getElementById('BabyChange');
+var BabyCareRoom = document.getElementById('BabyCareRoom');
+var DumpPoint = document.getElementById('DumpPoint');
+var Unisex = document.getElementById('Unisex');
+var Wheelchair = document.getElementById('Accessible');
+var SharpsDisposal = document.getElementById('SharpsDisposal');
+var DrinkingWater = document.getElementById('DrinkingWater');
+var SanitaryDisposal = document.getElementById('SanitaryDisposal');
 toiletButton.addEventListener("click", () => {
-    console.log(typeof(latInput.value));
-    console.log(typeof(lngInput.value));
-    getData(parseFloat(latInput.value), parseFloat(lngInput.value), 10, 100);
+    console.log(typeof(Shower.checked));
+    console.log(Shower.checked);
+    getData(parseFloat(latInput.value), parseFloat(lngInput.value), 10, 100, toiletButton.checked, 
+    Parking.checked, 
+    AccessibleParking.checked, 
+    MLAK24.checked, 
+    Free.checked, 
+    ChangingPlaces.checked, 
+    Shower.checked, 
+    BabyChange.checked, 
+    BabyCareRoom.checked, 
+    DumpPoint.checked, 
+    Unisex.checked, 
+    Wheelchair.checked, 
+    SharpsDisposal.checked, 
+    DrinkingWater.checked, 
+    SanitaryDisposal.checked);
 })
 
 
@@ -230,7 +258,7 @@ function addAllToilets(Toilets) {
         var toiletMarker = L.marker([restroom.lat, restroom.long], {icon: restroomIcon, draggable: false});
         var popupContent = `
         <b>${restroom.name}</b><br>
-        ${restroom.description || "No description available"}<br>
+        ${restroom.notes || "No description available"}<br>
         <b>Features:</b>
         <ul>
             ${restroom.Parking ? "<li>Parking Available</li>" : ""}
