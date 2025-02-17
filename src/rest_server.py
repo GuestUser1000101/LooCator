@@ -45,5 +45,22 @@ def post_companies():
   
   return response
 
+@api.route('/add', methods=['POST'])
+def post_new_toilet():
+  content = request.json
+  data = {}
+  for key in content:
+    data[key] = content[key]
+  print(data)
+  DatabaseSearch.add(data)
+
+  response = Response(
+    response=json.dumps({"success": True}),
+    status=201,
+    mimetype='application/json',
+  )
+
+  return response
+
 if __name__ == '__main__':
     api.run()
