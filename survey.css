@@ -40,7 +40,8 @@ input[type="checkbox"] {
 
 #accuracy {
     display: flex;
-    align-items: center;
+    justify-content: space-evenly;
+    align-items: baseline;
 }
 
 #questions {
