@@ -111,6 +111,7 @@ function geoSuccess(position) {
     longitude = document.getElementById("longitude");
     longitude.value = coords.longitude;
     AddMyMarker(coords.latitude, coords.longitude);
+    map.setView([coords.latitude, coords.longitude], 10);
 } 
 
 function trackManualInput() {
@@ -123,6 +124,7 @@ function trackManualInput() {
 
         if (lat && lng) {
             AddMyMarker(lat, lng); // Automatically add marker
+            map.setView([lat,lng], 10);
         }
     }
 
@@ -140,6 +142,7 @@ function onMapClick(e) {
     longitude.value = e.latlng.lng;
 
     AddMyMarker(ClickedLat, ClickedLong);
+    map.setView([ClickedLat, ClickedLong], 10);
     console.log("New coordinates: Latitude: " + ClickedLat + ", Longitude: " + ClickedLong);
 }
 map.on('click', onMapClick)
