@@ -110,7 +110,11 @@ class DateConstraint:
     
 
 class DatabaseSearch:
-    PATH = 'database/toilet_map.csv'
+    DATABASE_PATH = 'database/toilet_map.csv'
+    USER_DATABASE_PATH = 'database/user_toilet_map.csv'
+    DATABASE_FIELD_NAMES = [
+        "FacilityID","URL,Name","FacilityType","Address1","Town","State","AddressNote","Latitude","Longitude","Parking","ParkingAccessible","ParkingNote","KeyRequired","MLAK24","MLAKAfterHours","PaymentRequired","AccessNote","AdultChange","ChangingPlaces","BYOSling","ACShower","ACMLAK","AdultChangeNote","BabyChange","BabyCareRoom","BabyChangeNote","DumpPoint","DPWashout","DPAfterHours","DumpPointNote","OpeningHours","OpeningHoursNote","Male","Female","Unisex","AllGender","Ambulant","Accessible","LHTransfer","RHTransfer","ToiletNote","SharpsDisposal","DrinkingWater","SanitaryDisposal","MensPadDisposal","Shower"
+    ]
 
     def distance(x1, y1, x2, y2):
         return math.sqrt(math.pow(x2 - x1, 2) + math.pow(y2 - y1, 2))
@@ -123,16 +127,24 @@ class DatabaseSearch:
             + math.cos(lat1) * math.cos(lat2) * math.cos(long2 - long1)
             ) * 6371
 
+    def deleteEmptyStrings(arr):
+        return list(i for i in arr if i != '')
+    
+    def add(data):
+        with open(DatabaseSearch.USER_DATABASE_PATH, 'a', encoding="utf8") as file:
+            writer = csv.DictWriter(file, fieldnames=DatabaseSearch.DATABASE_FIELD_NAMES, quoting=1)
+            writer.writerows(data)
+
     def search(
             lat,
             long,
             searchResults,
             time,
             requirements,
-        ):
+    ):
         closest = SortedList(key = lambda value: value['distance'])
 
-        with open(DatabaseSearch.PATH, encoding="utf8") as file:
+        with open(DatabaseSearch.DATABASE_PATH, encoding="utf8") as file:
             reader = csv.DictReader(file)
             for row in reader:
                 for requirement in requirements:
@@ -145,7 +157,8 @@ class DatabaseSearch:
                         'long' : float(row['Longitude']),
                         'name' : row['Name'],
                         'time' : row['OpeningHours'],
-                        'notes' : ' '.join([
+                        'notes' : ' '.join(
+                            DatabaseSearch.deleteEmptyStrings([
                             row['AddressNote'],
                             row['ParkingNote'],
                             row['AccessNote'],
@@ -153,7 +166,7 @@ class DatabaseSearch:
                             row['BabyChangeNote'],
                             row['DumpPointNote'],
                             row['ToiletNote']
-                        ])
+                        ]))
                     }
                 )
 
@@ -161,3 +174,5 @@ class DatabaseSearch:
                     del closest[-1]
         
         return json.dumps(list(closest))
+    
+print(DatabaseSearch.search(1, 1, 1, 1, []))
