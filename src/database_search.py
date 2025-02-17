@@ -83,6 +83,12 @@ class DateConstraint:
         assert dateTimeConstraint[:6] == 'OPEN: '
         dateTimeConstraint = dateTimeConstraint[6:]
 
+        if dateTimeConstraint == DateConstraint.OPEN_TEXT: return True
+        if dateTimeConstraint == DateConstraint.VARIABLE_TEXT: return False # TODO
+        if dateTimeConstraint == DateConstraint.VARIABLE_TEXT:
+            return False # TODO
+        if dateTimeConstraint == DateConstraint.VENUE_TEXT: return False
+
         dateTimeConstraint = dateTimeConstraint.split(', ')
         for constraint in dateTimeConstraint:
             constraint = constraint.split(' ')
@@ -117,22 +123,38 @@ class DatabaseSearch:
             + math.cos(lat1) * math.cos(lat2) * math.cos(long2 - long1)
             ) * 6371
 
-    def search(lat, long, searchResults, hasParking = False, hasAccessibleParking = False, hasBabyChange = False):
+    def search(
+            lat,
+            long,
+            searchResults,
+            time,
+            requirementJson,
+        ):
         closest = SortedList(key = lambda value: value['distance'])
 
         with open(DatabaseSearch.PATH, encoding="utf8") as file:
             reader = csv.DictReader(file)
+            requirements = json.loads(requirementJson)
             for row in reader:
-                if (hasParking and row['Parking'] != 'True'): continue
-                if (hasAccessibleParking and row['ParkingAccessible'] != 'True'): continue
-                if (hasBabyChange and row['BabyChange'] != 'True'): continue
+                for requirement in requirements:
+                    if (requirements[requirement] and row[requirement] != 'True'): continue
 
                 closest.add(
                     {
                         'distance' : DatabaseSearch.distanceLatLong(lat, long, float(row['Latitude']), float(row['Longitude'])),
                         'lat' : float(row['Latitude']),
                         'long' : float(row['Longitude']),
-                        'name' : row['Name']
+                        'name' : row['Name'],
+                        'time' : row['OpeningHours'],
+                        'notes' : ' '.join([
+                            row['AddressNote'],
+                            row['ParkingNote'],
+                            row['AccessNote'],
+                            row['AdultChangeNote'],
+                            row['BabyChangeNote'],
+                            row['DumpPointNote'],
+                            row['ToiletNote']
+                        ])
                     }
                 )
 
