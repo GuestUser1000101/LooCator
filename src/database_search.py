@@ -166,7 +166,16 @@ class DatabaseSearch:
                             row['BabyChangeNote'],
                             row['DumpPointNote'],
                             row['ToiletNote']
-                        ]))
+                        ])),
+                        'Parking' : row['Parking'],
+                        'ParkingAccessible' : row['ParkingAccessible'],
+                        'Accessible' : row['Accessible'],
+                        'BabyChange' : row['BabyChange'],
+                        'BabyCareRoom' : row['BabyCareRoom'],
+                        'DrinkingWater' : row['DrinkingWater'],
+                        'SanitaryDisposal' : row['SanitaryDisposal'],
+                        'Shower' : row['Shower'],
+                        'DumpPoint' : row['DumpPoint'],
                     }
                 )
 
