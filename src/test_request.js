@@ -25,18 +25,28 @@ function request (lat, long, searchResults, time, parking = false, parkingAccess
      }
   console.log(JSON.stringify(new request(100.0, 100.0, 100, 10)));
   var toUse = JSON.stringify(new request(100.0, 100.0, 100, 10));
+  console.log(toUse);
 var url = ""
-fetch("http://127.0.0.1:5000/search",
-    { method: 'POST',  
-   
-       body: toUse, 
-        }
-      )  
-      .then(function(res){return res.json();})
-      .then(function(data){
-        //alert(JSON.stringify(data));
-        console.log(data);
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
 
-      })   
-      .catch(error => console.error('Error posting data:', error));
+async function getData() {
+  const url = "http://127.0.0.1:5000/search"
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      body:  toUse,
+      headers : myHeaders
+  });
+    if(!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const json = await response.json();
+    console.log(json);
+    console.log("WE ARE HERE NOW BB")
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+getData();
   
