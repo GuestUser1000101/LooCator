@@ -2,11 +2,14 @@ let slider = document.getElementById("rangeslider");
 let SliderOutput = document.getElementById("sliderValue");
 let valueP = document.createElement('p');
 let pText = document.createTextNode(slider.value);
+let latInput = document.getElementById("latitude");
+let lngInput = document.getElementById("longitude");
 valueP.appendChild(pText);
 SliderOutput.appendChild(valueP);
 slider.oninput = function() {
     pText.textContent = this.value;
 }
+
 
 var coll = document.getElementsByClassName("collapsible");
 var i;
@@ -107,17 +110,13 @@ locationButton.addEventListener('click', () => {
 function geoSuccess(position) {
     let { coords } = position; 
     console.log(coords);
-    latitude = document.getElementById("latitude");
-    latitude.value = coords.latitude;
-    longitude = document.getElementById("longitude");
-    longitude.value = coords.longitude;
+    latInput.value = coords.latitude;
+    lngInput.value = coords.longitude;
     AddMyMarker(coords.latitude, coords.longitude);
     map.setView([coords.latitude, coords.longitude], 10);
 } 
 
 function trackManualInput() {
-    let latInput = document.getElementById("latitude");
-    let lngInput = document.getElementById("longitude");
 
     function handleInput() {
         let lat = latInput.value;
@@ -137,9 +136,9 @@ var ClickedLat;
 var ClickedLong;
 function onMapClick(e) {
     ClickedLat = e.latlng.lat;
-    latitude.value = e.latlng.lat;
+    latInput.value = e.latlng.lat;
     ClickedLong = e.latlng.lng;
-    longitude.value = e.latlng.lng;
+    lngInput.value = e.latlng.lng;
 
     AddMyMarker(ClickedLat, ClickedLong);
     map.setView([ClickedLat, ClickedLong], 11);
@@ -180,7 +179,10 @@ async function getData(lat, long, searchResults, time, parking = false, parkingA
    babyChange = false, babyCareRoom = false, 
    dumpPoint = false, unisex = false, accessible = false,
     sharpsDisposal = false, drinkingWater = false, sanitaryDisposal = false) {
-      
+       if (isNaN(lat) || isNaN(long)) {
+            console.error("Invalid latitude or longitude values");
+            return;
+          }
   looRequest = new request(lat, long, searchResults, time, parking, parkingAccessible, MLAK24, 
     paymentRequired, changingPlaces, shower, babyChange, babyCareRoom, dumpPoint, unisex, accessible, 
    sharpsDisposal, drinkingWater, sanitaryDisposal);
@@ -206,15 +208,24 @@ async function getData(lat, long, searchResults, time, parking = false, parkingA
     console.error(error.message);
   }
 }
-getData(47.562752, -122.175488, 5, 100);
+
+var toiletButton = document.getElementById("ToiletButton")
+toiletButton.addEventListener("click", () => {
+    console.log(typeof(latInput.value));
+    console.log(typeof(lngInput.value));
+    getData(parseFloat(latInput.value), parseFloat(lngInput.value), 10, 100);
+})
 
 
 var restroomIcon = L.icon({ iconUrl: 'Imgs/BathroomIcon.jpg', // Public restroom icon
     iconSize: [50, 50], // Adjust size as needed
     iconAnchor: [15, 30], 
     popupAnchor: [0, -30]})
-
+var lastToilets = [];
 function addAllToilets(Toilets) {
+    lastToilets.forEach(marker => map.removeLayer(marker));
+        lastToilets = []; // Clear the array
+
     Toilets.forEach(restroom => {
         var toiletMarker = L.marker([restroom.lat, restroom.long], {icon: restroomIcon, draggable: false});
         var popupContent = `
@@ -235,6 +246,7 @@ function addAllToilets(Toilets) {
     `;
          toiletMarker.bindPopup(popupContent);
          toiletMarker.addTo(map);
+         lastToilets.push(toiletMarker);
     });
 }
 
