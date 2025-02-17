@@ -3,7 +3,6 @@ body, html {
     padding: 0;
     height: 100%;
     font-family: 'Arial', sans-serif;
-    display: flex; 
 }
 
 #map {
@@ -17,15 +16,20 @@ body, html {
 
 .wrapper {
     display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    height: 100vh; 
-    width: 100%;
-    padding: 20px; 
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    width: 40%;
+    padding: 20px;
     position: relative;
-    overflow-y: auto; 
+    overflow-y: auto;
     z-index: 1;
-    padding-top: 15%;
+    padding-top: 10%;
+}
+
+#heading{
+    align-items: center;
+    justify-content: baseline;
 }
 
 .main-header {
@@ -33,96 +37,161 @@ body, html {
     background-color: #1e3d58;
     font-size: 2.5rem;
     font-weight: bold;
-    padding: 20px 0;
-    text-align: center;
+    padding: 20px;
     color: white;
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; 
+}
+
+#surveyButton {
+    position: absolute; 
+    top: 50%;         
+    right: 20px;     
+    transform: translateY(-50%);
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 20px;
+    transition: background-color 0.3s ease;
+}
+
+#surveyButton:hover {
+    background-color: #0056b3;
 }
 
 .gpsForm {
     background-color: rgba(255, 255, 255, 0.85);
     padding: 30px;
-    width: 600px; 
+    width: 90%;
+    max-width: 600px;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-    margin-top: 20px; 
+    margin-top: 20px;
+    border-radius: 8px; 
 }
 
-
-.gpsForm input[type="text"], .gpsForm input[type="datetime-local"] {
-   width: 100%;
-   padding: 10px;
-   margin: 10px 0;
-   border-radius: 4px;
-   border: 1px solid #ddd;
-   font-size: 1rem;
+.input-group {
+    margin-bottom: 15px;
 }
 
-.gpsForm input[type="submit"], #userLocation,.gpsForm input[type="button"] {
-   background-color: #1e3d58;
-   color: white;
-   border: none;
-   padding: 10px 20px;
-   font-size: 1.2rem;
-   border-radius: 4px;
-   cursor: pointer;
-   width: 100%;
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
-.gpsForm input[type="submit"]:hover, #userLocation:hover,.gpsForm input[type="button"]:hover {
-   background-color: #1e3d58;
+.gpsForm input[type="text"],
+.gpsForm input[type="datetime-local"] {
+    width: calc(100% - 12px);
+    padding: 10px;
+    margin: 5px 0; 
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    box-sizing: border-box;
 }
+
+.gpsForm input[type="submit"],
+#userLocation,
+.gpsForm input[type="button"] {
+    background-color: #1e3d58;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.gpsForm input[type="submit"]:hover,
+#userLocation:hover,
+.gpsForm input[type="button"]:hover {
+    background-color: #3a5a77;
+}
+
 .slider {
-   margin-top: 20px;
+    margin-top: 20px;
 }
 
 .slider input[type="range"] {
-   width: 80%;
-   margin-top: 10px;
+    width: 100%;
+    margin-top: 10px;
 }
 
 .slider p {
-   font-size: 1.1rem;
-}
-
-.main-header {
-   position: absolute;
-   top: 20px;
-   left: 20px;
-   color: white;
-   font-size: 2.5rem;
-   font-weight: bold;
-   z-index: 1;
+    font-size: 1.1rem;
 }
 
 .collapsible {
     background-color: #1e3d58;
     color: white;
     cursor: pointer;
-    padding: 18px;
+    padding: 12px 20px;
     width: 100%;
     border: none;
     text-align: left;
     outline: none;
-    font-size: 15px;
-    margin-bottom: 5px;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
 }
-  
-.active, .collapsible:hover {
-    background-color: #1e3d58;
+
+.collapsible:hover {
+    background-color: #3a5a77;
 }
-  
+
 .additionalContent {
-    padding: 0 25px;
-    display: none;
+    padding: 20px;
+    display: flex; 
+    flex-direction: column;
     overflow: hidden;
     background-color: #f1f1f1;
-    margin-bottom: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
 }
 
-.additionalContent > * { 
+.additionalContent > * {
     margin-bottom: 10px; 
+    display: flex; 
+    align-items: center; 
+    flex-direction: column; 
 }
 
-.additionalContent > *:last-child {
-    margin-bottom: 0;
+.additionalContent label {
+    margin-left: 0; 
+    cursor: pointer;
+}
+
+.additionalContent input[type="checkbox"] {
+    margin: 0 0 5px 0; 
+}
+
+.submitButton {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.submitButton input[type="submit"] {
+    background-color: #1e3d58;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submitButton input[type="submit"]:hover {
+    background-color: #3a5a77;
 }

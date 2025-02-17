@@ -1,5 +1,3 @@
-
-
 let slider = document.getElementById("rangeslider");
 let output = document.getElementById("sliderValue");
 let valueP = document.createElement('p');
