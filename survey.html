@@ -3,9 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey</title>
+    <title>LooCator Survey</title>
+    <link rel="stylesheet" href="survey.css">
+    <style>
+        
+    </style>
 </head>
 <body>
-    <p>SURVEY</p>
+    <h1>LooCator User Survey</h1>
+
+    <p>Thank you for using LooCator! We appreciate your feedback and would love to hear about your experience. Your responses will help us improve our app and make it even better for everyone.</p>
+
+    <form action="" method="post">  <div class="question">
+            <label for="usage">How often do you use LooCator?</label>
+            <select id="usage" name="usage">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="rarely">Rarely</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <label>How satisfied are you with the accuracy of the restroom locations?</label>
+            <div id="accuracyDiv">
+                <div id="accuracy">
+                <input type="radio" id="satisfied" name="accuracy" value="satisfied">
+                <label for="satisfied">Satisfied</label></div>
+                <div id="accuracy"><input type="radio" id="neutral" name="accuracy" value="neutral">
+                <label for="neutral">Neutral</label></div>
+                <div id="accuracy"><input type="radio" id="dissatisfied" name="accuracy" value="dissatisfied">
+                <label for="dissatisfied">Dissatisfied</label></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>Which features of LooCator do you find most useful? (Select all that apply)</label>
+            <div id="questions">
+                <div id = "individualQuestions">
+                <input type="checkbox" id="location" name="features[]" value="location">
+                <label for="location">Finding nearby restrooms</label></div>
+                <div id = "individualQuestions">
+                <input type="checkbox" id="filters" name="features[]" value="filters">
+                <label for="filters">Filtering by amenities</label></div>
+                <div id = "individualQuestions"> 
+                <input type="checkbox" id="directions" name="features[]" value="directions">
+                <label for="directions">Getting directions</label></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <label for="comments">Do you have any other comments or suggestions?</label>
+            <textarea id="comments" name="comments" rows="4"></textarea>
+        </div>
+
+        <button type="submit">Submit Survey</button>
+    </form>
+
 </body>
 </html>
