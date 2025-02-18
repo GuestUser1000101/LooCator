@@ -2,6 +2,7 @@ import math
 import csv
 import json
 from sortedcontainers import SortedList
+import datetime
 
 class DateConstraint:
     CLOSE_TEXT = "Currently closed"
@@ -9,6 +10,7 @@ class DateConstraint:
     VARIABLE_TEXT = "Variable hours"
     DAYLIGHT_TEXT = "Daylight hours"
     VENUE_TEXT = "Venue hours"
+    HOURS_UNKNOWN_TEXT = "Opening hours unknown"
     
     DAYS = {
         'Mon' : 0,
@@ -46,17 +48,22 @@ class DateConstraint:
         return hour + (12 if meridiem == 'pm' else 0)
     
     def isMonthValid(month, monthConstraint):
-        monthConstraint = list(map(lambda x: DateConstraint.MONTHS[x], monthConstraint.split('-')))
+        monthConstraint = monthConstraint.split(',')
+        if len(monthConstraint) > 1:
+            return any(list(map(lambda x: DateConstraint.isMonthValid(month, x), monthConstraint)))
+        
+        monthConstraint = list(map(lambda x: DateConstraint.MONTHS[x], monthConstraint[0].split('-')))
         return month == monthConstraint if len(monthConstraint) == 1 else (
             month >= monthConstraint[0] and month <= monthConstraint[1] if monthConstraint[1] > monthConstraint[0] else 
             month >= monthConstraint[0] or month <= monthConstraint[1]
         )
     
     def isDayValid(day, dayConstraint):
-        print(day)
-        print(dayConstraint)
-        dayConstraint = list(map(lambda x: DateConstraint.DAYS[x], dayConstraint.split('-')))
-        print(dayConstraint)
+        dayConstraint = dayConstraint.split(',')
+        if len(dayConstraint) > 1:
+            return any(list(map(lambda x: DateConstraint.isDayValid(day, x), dayConstraint)))
+        
+        dayConstraint = list(map(lambda x: DateConstraint.DAYS[x], dayConstraint[0].split('-')))
         return day == dayConstraint[0] if len(dayConstraint) == 1 else (
             day >= dayConstraint[0] and day <= dayConstraint[1] if dayConstraint[1] > dayConstraint[0] else
             day >= dayConstraint[0] or day <= dayConstraint[1]
@@ -71,21 +78,30 @@ class DateConstraint:
         )
     
     def isMonthConstraint(constraint):
-        constraint = constraint.split('-')
+        constraint = constraint.split(',')
+        if len(constraint) > 1:
+            return any(list(map(DateConstraint.isMonthConstraint, constraint)))
+        
+        constraint = constraint[0].split('-')
         return constraint[0] in DateConstraint.MONTHS
     
     def isDayConstraint(constraint):
-        constraint = constraint.split('-')
+        constraint = constraint.split(',')
+        if len(constraint) > 1:
+            return any(list(map(DateConstraint.isDayConstraint, constraint)))
+        
+        constraint = constraint[0].split('-')
         return constraint[0] in DateConstraint.DAYS
     
     def isDateTimeValid(month, day, hour, dateTimeConstraint):
         if dateTimeConstraint == DateConstraint.CLOSE_TEXT: return False
+        if dateTimeConstraint == DateConstraint.HOURS_UNKNOWN_TEXT: return False
         assert dateTimeConstraint[:6] == 'OPEN: '
         dateTimeConstraint = dateTimeConstraint[6:]
 
         if dateTimeConstraint == DateConstraint.OPEN_TEXT: return True
         if dateTimeConstraint == DateConstraint.VARIABLE_TEXT: return False # TODO
-        if dateTimeConstraint == DateConstraint.VARIABLE_TEXT:
+        if dateTimeConstraint == DateConstraint.DAYLIGHT_TEXT:
             return False # TODO
         if dateTimeConstraint == DateConstraint.VENUE_TEXT: return False
 
@@ -94,16 +110,13 @@ class DateConstraint:
             constraint = constraint.split(' ')
             n = 0
             if DateConstraint.isMonthConstraint(constraint[n]):
-                print('MONTH CHECK:', constraint[n], month)
                 if not DateConstraint.isMonthValid(month, constraint[n]): continue
                 n += 1
             
             if DateConstraint.isDayConstraint(constraint[n]):
-                print('DAY CHECK:', constraint[n], day)
                 if not DateConstraint.isDayValid(day, constraint[n]): continue
                 n += 1
 
-            print('TIME CHECK:', constraint[n], hour)
             if DateConstraint.isTimeValid(hour, constraint[n]): return True
         
         return False
@@ -146,6 +159,11 @@ class DatabaseSearch:
 
         with open(DatabaseSearch.DATABASE_PATH, encoding="utf8") as file:
             reader = csv.DictReader(file)
+            if time != '':
+                time = time.split('T')
+                time[0] = list(map(int, time[0].split('-')))
+                time[1] = list(map(int, time[1].split(':')))
+                time.append(datetime.datetime(time[0][0], time[0][1], time[0][2]).weekday())
             for row in reader:
                 flag = False
                 for requirement in requirements:
@@ -154,6 +172,9 @@ class DatabaseSearch:
                         break
                 if flag:
                     continue
+
+                if time != '' and not DateConstraint.isDateTimeValid(time[0][1], time[2], time[1][0] + time[1][1] / 60, row['OpeningHours']):
+                        continue
 
                 closest.add(
                     {
@@ -188,6 +209,3 @@ class DatabaseSearch:
                     del closest[-1]
         
         return json.dumps(list(closest))
-    
-#print(DatabaseSearch.add({'Latitude' : 1, 'Longitude' : 2, 'FacilityType' : 'aa'}))
-#print(DatabaseSearch.search(10, 10, 10, 10, ['']))
