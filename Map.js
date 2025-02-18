@@ -253,9 +253,28 @@ var restroomIcon = L.icon({ iconUrl: 'Imgs/BathroomIcon.jpg', // Public restroom
 var lastToilets = [];
 function addAllToilets(Toilets) {
     lastToilets.forEach(marker => map.removeLayer(marker));
-        lastToilets = []; // Clear the array
+    lastToilets = []; // Clear the array
 
-    Toilets.forEach(restroom => {
+    const requiredFeatures = {
+        Parking: ParkingHTML.checked,
+        ParkingAccessible: AccessibleParkingHTML.checked,
+        Accessible: WheelchairHTML.checked,
+        BabyChange: BabyChangeHTML.checked,
+        BabyCareRoom: BabyCareRoomHTML.checked,
+        DrinkingWater: DrinkingWaterHTML.checked,
+        SanitaryDisposal: SanitaryDisposalHTML.checked,
+        Shower: ShowerHTML.checked,
+        DumpPoint: DumpPointHTML.checked
+    };
+
+    let filteredToilets = Toilets.filter(restroom => {
+        return Object.keys(requiredFeatures).every(feature => {
+            return !requiredFeatures[feature] || restroom[feature] === "True"; 
+            // If feature is checked, restroom must have it; otherwise, ignore it
+        });
+    });
+
+    filteredToilets.forEach(restroom => {
         var toiletMarker = L.marker([restroom.lat, restroom.long], {icon: restroomIcon, draggable: false});
         var popupContent = `
         <b>${restroom.name}</b><br>
